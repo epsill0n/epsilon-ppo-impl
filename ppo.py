@@ -66,7 +66,7 @@ class PPO:
         self.print_interval = print_interval
         self.n_trials = n_trials
         
-        # логови
+        # logs
         self.train_rewards = []
         self.test_rewards = []
         self.policy_losses = []
@@ -113,8 +113,8 @@ class PPO:
         rewards_per_env = [[] for _ in range(n_envs)]
         dones_per_env = [[] for _ in range(n_envs)]
         
-        ep_rewards = np.zeros(n_envs, dtype=np.float32)   # тековниот исход од епизодата
-        finished_episodes = []                            # исходот од тековните завршени епизоди
+        ep_rewards = np.zeros(n_envs, dtype=np.float32)
+        finished_episodes = []
         
         state = self.env_train.reset()
         
@@ -137,7 +137,6 @@ class PPO:
                 rewards_per_env[i].append(reward[i])
                 dones_per_env[i].append(done[i])
                 
-                # акумулирање на вкупната награда од епизодата
                 ep_rewards[i] += reward[i]
                 if done[i]:
                     finished_episodes.append(ep_rewards[i])
@@ -230,7 +229,7 @@ class PPO:
                 state_tensor = torch.FloatTensor(state).permute(0, 3, 1, 2).to(device)
                 with torch.no_grad():
                     action_logits, _ = self.agent(state_tensor)
-                    # greedy (deterministic) policy
+
                     actions = torch.argmax(F.softmax(action_logits, dim=-1), dim=-1).cpu().numpy()
             
                 next_state, reward, done_step, info = self.env_test.step(actions)

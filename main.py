@@ -8,15 +8,15 @@ if __name__ == '__main__':
         discount_factor=0.99,
         gae_lambda=0.95,
         ppo_steps=10,
-        epsilon=0.2,                  # smaller clip range to stabilize policy updates
-        entropy_coefficient=0.01,      # increased entropy bonus for exploration
-        learning_rate=2.5e-4,            # reduced learning rate to avoid premature convergence
-        rollout_length=128,           # longer rollout length for better advantage estimation
-        max_episodes=48828,             # number of training episodes
+        epsilon=0.2,
+        entropy_coefficient=0.01,
+        learning_rate=2.5e-4,
+        rollout_length=128,
+        max_episodes=48828,
         reward_threshold=50000,
         print_interval=1,
         n_trials=100,
-        n_envs_train=8,                # number of parallel environments for stable training
+        n_envs_train=8,
         n_envs_test=1
     )
 
